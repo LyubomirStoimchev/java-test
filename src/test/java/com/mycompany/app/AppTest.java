@@ -1,39 +1,36 @@
 package com.mycompany.app;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.chrome.ChromeOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
 
 
-@RunWith(JUnit4.class)
 public class AppTest {
     public AppTest() {
     }
     public static WebDriver driver;
-    @BeforeClass
-    public static void vef(){
-        WebDriverManager.chromedriver().setup();
-        
-        driver = new ChromeDriver();
+    
+    @Before
+    public static void initializeBrowser(){
+        WebDriverManager.chromedriver().browserInDocker().setup();
+
+        ChromeOptions opts = new ChromeOptions();
+        opts.addArguments("--headless", "--disable-dev-shm-usage", "--no-sandbox");
+
+        driver = new ChromeDriver(opts);
     }
 
     
     @Test
-    public void testApp() throws Exception {
-        
+    public void simpleTest() throws Exception {
 
         driver.get("https://github.com/bonigarcia/webdrivermanager");
 
@@ -49,20 +46,11 @@ public class AppTest {
         System.out.println(el.getText());
 
         assertEquals(el.getText(), "asdasdasd");
-        driver.close();
-
-        assertTrue(true);
     }
 
-    @AfterClass
-    public static void asd(){
+
+    @After
+    public static void closeBrowser(){
         driver.close();
     }
-
-    // @After
-    // private void After(){
-    //     if (driver != null){
-    //         driver.close();
-    //     }
-    // }
 }
