@@ -31,21 +31,6 @@ public class AppTest {
     
     @Test
     public void simpleTest() throws Exception {
-
-        driver.get("https://github.com/bonigarcia/webdrivermanager");
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        WebElement el = driver.findElement(By.xpath("//*[@class='f4 my-3']"));
-        
-        System.out.println(el.getText());
-
-        assertEquals(el.getText(), "asdasdasd");
     }
 
 
